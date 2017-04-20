@@ -16,17 +16,20 @@
         <Button
             android:id="@+id/holla"
             style="@style/button"
-            android:text="Yo" />
+            android:text="Holla"
+            android:onClick="toHolla"/>
 
         <Button
             android:id="@+id/print"
             style="@style/button"
-            android:text="Print" />
+            android:text="Print"
+            android:onClick="toPrint"/>
 
         <Button
             android:id="@+id/food"
             style="@style/button"
-            android:text="Food" />
+            android:text="Food"
+            android:onClick="toFood"/>
     </LinearLayout>
 
 </RelativeLayout>
