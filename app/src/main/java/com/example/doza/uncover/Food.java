@@ -24,6 +24,8 @@ public class Food extends ListActivity {
         super.onCreate(savedInstanceState);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+        setContentView(R.layout.activity_food);
+
         final UserTimeline userTimeline = new UserTimeline.Builder()
                 .screenName("PhreePhood")
                 .build();
@@ -32,7 +34,6 @@ public class Food extends ListActivity {
                 .build();
 
         setListAdapter(adapter);
-//        setContentView(R.layout.activity_food);
 
     }
 }

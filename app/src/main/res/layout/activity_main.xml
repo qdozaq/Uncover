@@ -13,6 +13,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="uncover"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="60dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="-15dp"
+            />
+
         <Button
             android:id="@+id/holla"
             style="@style/button"
