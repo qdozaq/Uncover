@@ -19,6 +19,10 @@
         <activity android:name=".Holla" />
         <activity android:name=".Print" />
         <activity android:name=".Food"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3fd37f31af5f094ff07c3bb7592925bb9620bf39" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
