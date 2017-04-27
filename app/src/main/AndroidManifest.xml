@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.doza.uncover">
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,11 +21,13 @@
         </activity>
         <activity android:name=".Holla" />
         <activity android:name=".Print" />
-        <activity android:name=".Food"></activity>
+        <activity android:name=".Food" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="3fd37f31af5f094ff07c3bb7592925bb9620bf39" />
+
+        <activity android:name=".MapActivity"></activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

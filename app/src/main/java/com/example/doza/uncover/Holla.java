@@ -43,10 +43,17 @@ public class Holla extends AppCompatActivity implements GoogleApiClient.Connecti
         c.disconnect();
         super.onStop();
     }
-    public void findFriend(){
+    public void findFriend(View v){
         String input = ((EditText)findViewById(R.id.locField)).getText().toString();
-        String lat = input.substring(0,input.indexOf(","));
-        String lon = input.substring(input.indexOf(",")+1,input.length());
+        //String lat = input.substring(0,input.indexOf(","));
+        //String lon = input.substring(input.indexOf(",")+1,input.length());
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q="+input+"(Frand)");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
+//        Intent X = new Intent(this, MapActivity.class);
+//
+//        startActivity(X);
 
     }
 
