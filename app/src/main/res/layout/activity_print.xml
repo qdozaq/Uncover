@@ -40,5 +40,10 @@
         android:text="Find this printer"
         android:id="@+id/navTo"
         android:onClick="navTo"/>
+    <Button
+        android:id="@+id/addPrinter"
+        android:text="Add printer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
