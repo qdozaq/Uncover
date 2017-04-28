@@ -19,26 +19,27 @@
             android:text="uncover"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="60dp"
+            android:textSize="70dp"
             android:textStyle="bold"
-            android:layout_marginBottom="-15dp"
+            android:layout_marginBottom="-20dp"
+            android:layout_marginTop="-40dp"
             />
 
         <Button
             android:id="@+id/holla"
-            style="@style/button"
+            style="@style/main_page_buttons"
             android:text="Holla"
             android:onClick="toHolla"/>
 
         <Button
             android:id="@+id/print"
-            style="@style/button"
+            style="@style/main_page_buttons"
             android:text="Print"
             android:onClick="toPrint"/>
 
         <Button
             android:id="@+id/food"
-            style="@style/button"
+            style="@style/main_page_buttons"
             android:text="Food"
             android:onClick="toFood"/>
     </LinearLayout>
