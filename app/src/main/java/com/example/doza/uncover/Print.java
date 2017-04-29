@@ -74,6 +74,7 @@ public class Print extends AppCompatActivity implements GoogleApiClient.Connecti
             ((TextView)findViewById(R.id.printer)).setText(closestPrinter.getLocation());
             ((TextView)findViewById(R.id.note)).setText(closestPrinter.getNote());
             ((Button)findViewById(R.id.navTo)).setVisibility(View.VISIBLE);
+            findViewById(R.id.printerfield).setVisibility(View.VISIBLE);
         }
 
 
