@@ -16,7 +16,7 @@
         android:scaleType="fitCenter"
         android:src="@drawable/back"
         android:tint="@color/colorAccent"
-        android:background="@drawable/backButton"
+        android:background="@drawable/back_button"
         android:onClick="toMain"/>
 
     <TextView
@@ -43,20 +43,49 @@
             />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="temp text"
-        android:id="@+id/printer"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="temp text"
-        android:id="@+id/note"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/darkTransparent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:text="School of Dentistry"
+            android:textSize="30dp"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/printer"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="G401 Koury Oral Health Sciences Building"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp"
+            android:id="@+id/note"/>
+
+    </LinearLayout>
+
     <Button
+        style="@style/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:padding="10dp"
+        android:layout_marginTop="3dp"
+        android:visibility="visible"
+        android:layout_gravity="center"
         android:text="Find this printer"
         android:id="@+id/navTo"
         android:onClick="navTo"/>
