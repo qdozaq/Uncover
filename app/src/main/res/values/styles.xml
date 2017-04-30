@@ -25,11 +25,29 @@
     </style>
 
     <style name="printer_buttons" parent="button">
-        <item name="android:layout_weight">.5</item>
         <item name="android:textSize">18dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_margin">1dp</item>
 
+    </style>
+
+    <style name="holla_buttons" parent="button">
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_weight">.5</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="back_button">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:src">@drawable/back</item>
+        <item name="android:tint">@color/colorAccent</item>
+        <item name="android:background">@drawable/back_button</item>
     </style>
 
 

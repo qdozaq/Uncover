@@ -7,20 +7,24 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-public class Print extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
+public class Print extends AppCompatActivity implements LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     Printer[] printerLocations = new Printer[27];
-    double currLat,currLong;
-    boolean locFound=false;
+    double currLat, currLong;
+    boolean locFound = false;
     private GoogleApiClient c = null;
     Printer closestPrinter;
+    private LocationRequest locationRequest;
 
 
     @Override
@@ -63,46 +67,49 @@ public class Print extends AppCompatActivity implements GoogleApiClient.Connecti
         printerLocations[25] = new Printer(35.924755, -79.047363, "Student Union", "Lower Level Underground Lounge");
         printerLocations[26] = new Printer(35.909996, -79.049048, "UL - R.B. House Undergraduate Library", "Entry Copier Rm; Rm 037");
     }
-    public void toMain(View v){
+
+    public void toMain(View v) {
         Intent X = new Intent(this, MainActivity.class);
 
         startActivity(X);
     }
-    public void findPrint(View v){
-        if(locFound){
+
+    public void findPrint(View v) {
+        if (locFound) {
             closestPrinter = findPrinter();
-            ((TextView)findViewById(R.id.printer)).setText(closestPrinter.getLocation());
-            ((TextView)findViewById(R.id.note)).setText(closestPrinter.getNote());
-            ((Button)findViewById(R.id.navTo)).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.printer)).setText(closestPrinter.getLocation());
+            ((TextView) findViewById(R.id.note)).setText(closestPrinter.getNote());
+            ((Button) findViewById(R.id.navTo)).setVisibility(View.VISIBLE);
             findViewById(R.id.printerfield).setVisibility(View.VISIBLE);
         }
 
 
     }
-    public void navTo(View v){
-        if(closestPrinter != null){
-            Uri gmmIntentUri = Uri.parse("geo:0,0?q="+closestPrinter.getLat()+","+closestPrinter.getLon()+"("+closestPrinter.getLocation()+" Printer)");
+
+    public void navTo(View v) {
+        if (closestPrinter != null) {
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + closestPrinter.getLat() + "," + closestPrinter.getLon() + "(" + closestPrinter.getLocation() + " Printer)");
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             startActivity(mapIntent);
         }
 
     }
-    public Printer findPrinter(){
+
+    public Printer findPrinter() {
 
         double lat = currLat;
         double lon = currLong;
-        Printer closest=null;
+        Printer closest = null;
         boolean set = false;
-        double shortestDist=100000;
-        for(Printer p: printerLocations){
-            double dist = Math.sqrt((lat-p.getLat())*(lat-p.getLat())+(lon-p.getLon())*(lon-p.getLon()));
-            if(!set){
+        double shortestDist = 100000;
+        for (Printer p : printerLocations) {
+            double dist = Math.sqrt((lat - p.getLat()) * (lat - p.getLat()) + (lon - p.getLon()) * (lon - p.getLon()));
+            if (!set) {
                 closest = p;
                 shortestDist = dist;
                 set = true;
-            }
-            else if(dist<shortestDist){
+            } else if (dist < shortestDist) {
                 closest = p;
                 shortestDist = dist;
             }
@@ -110,18 +117,10 @@ public class Print extends AppCompatActivity implements GoogleApiClient.Connecti
         return closest;
 
     }
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        try {
-            Location loc = LocationServices.FusedLocationApi.getLastLocation(c);
-            currLat = loc.getLatitude();
-            currLong = loc.getLongitude();
-            locFound = true;
-            ((TextView)findViewById(R.id.status)).setText("Location found");
-
-        }catch (SecurityException ex) {
-            ex.printStackTrace();
-        }
+        getLocation(null);
     }
 
     @Override
@@ -133,14 +132,53 @@ public class Print extends AppCompatActivity implements GoogleApiClient.Connecti
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
     @Override
-    protected void onStart(){
+    protected void onStart() {
         c.connect();
         super.onStart();
     }
+
     @Override
-    protected void onStop(){
+    protected void onStop() {
         c.disconnect();
         super.onStop();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        getLocation(location);
+    }
+
+    private void getLocation(Location l) {
+        Location loc = l;
+        try {
+            if (loc == null) {
+                loc = LocationServices.FusedLocationApi.getLastLocation(c);
+            }
+
+            if (loc != null) {
+                currLat = loc.getLatitude();
+                currLong = loc.getLongitude();
+                locFound = true;
+                ((TextView) findViewById(R.id.status)).setText("Location found");
+            } else {
+                startLocationUpdates();
+            }
+        } catch (SecurityException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void startLocationUpdates() {
+        Log.i("tag", "startLocationUpdates()");
+        locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10000);
+
+        if (MainActivity.checkPermission(this))
+            LocationServices.FusedLocationApi.requestLocationUpdates(c, locationRequest, this);
+
+        getLocation(null);
     }
 }
